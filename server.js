@@ -28,7 +28,18 @@ app.get('/api/movies', (req, res) => {
     })
 });
 
-app.post('/api/add-movie');
+app.post('/api/add-movie', (req, res) => {
+    const newMovie = req.params.movie_name;
+
+    db.query(`INSERT INTO movies (movie_name) VALUES ("Turning Red")`, newMovie, (err, results) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.json(results);
+            console.log(results);
+        }
+    })
+});
 
 app.post('/api/update-review');
 
