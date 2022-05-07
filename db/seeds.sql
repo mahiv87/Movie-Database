@@ -9,3 +9,15 @@ VALUES ('The Batman'),
     ('Morbius'),
     ('Dog'),
     ('Jackass Forever');
+
+INSERT INTO reviews (movie_id, reviews)
+VALUES (1, 'It was okay'),
+    (2, 'It was okay'),
+    (3, 'It was okay'),
+    (4, 'It was okay'),
+    (5, 'It was okay'),
+    (6,'It was okay'),
+    (7, 'It was okay'),
+    (8, 'It was okay'),
+    (9, 'It was okay'),
+    (10, 'It was okay');

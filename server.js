@@ -11,18 +11,19 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: '',
+        password: 'BuceeHerrera2022!',
         database: 'movie_db'
     },
     console.log(`Connected to the movie_db database`)
 );
 
 app.get('/api/movies', (req, res) => {
-    db.query('SELECT * FROM movies', (err, results) => {
+    db.query(`SELECT * FROM movies`, (err, results) => {
         if (err) {
-            console.error(error);
+            console.error(err);
         } else {
             res.json(results);
+            console.log(results);
         }
     })
 });
@@ -31,7 +32,18 @@ app.post('/api/add-movie');
 
 app.post('/api/update-review');
 
-app.delete('/api/movie/:id');
+app.delete('/api/movie/:id', (req, res) => {
+    let deleted = req.params.id;
+
+    db.query(`DELETE FROM movies WHERE id = ?`, deleted, (err, results) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.json(results);
+            console.log(results);
+        }
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
