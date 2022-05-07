@@ -12,17 +12,17 @@ const db = mysql.createConnection(
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'movies_db'
+        database: 'movie_db'
     },
-    console.log(`Connected to the movies_db database`)
+    console.log(`Connected to the movie_db database`)
 );
 
 app.get('/api/movies', (req, res) => {
-    db.query('SELECT * FROM movies', (err) => {
+    db.query('SELECT * FROM movies', (err, results) => {
         if (err) {
             console.error(error);
         } else {
-            res.json();
+            res.json(results);
         }
     })
 });
