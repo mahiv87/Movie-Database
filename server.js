@@ -29,7 +29,7 @@ app.get('/api/movies', (req, res) => {
 });
 
 app.post('/api/add-movie', (req, res) => {
-    const newMovie = req.params.movie_name;
+    let newMovie = req.params.movie_name;
 
     db.query(`INSERT INTO movies (movie_name) VALUES ("Turning Red")`, newMovie, (err, results) => {
         if (err) {
@@ -41,7 +41,21 @@ app.post('/api/add-movie', (req, res) => {
     })
 });
 
-app.post('/api/update-review');
+app.post('/api/update-review/:id', (req, res) => {
+    let update = [req.body.review, req.params.id];
+
+    db.query(`UPDATE reviews SET review = ? WHERE id = ?`, update, (err, results) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.json({
+                message: 'success',
+                data: req.body,
+                changes: results.affectedRows
+            });
+        }
+    });
+});
 
 app.delete('/api/movie/:id', (req, res) => {
     let deleted = req.params.id;
