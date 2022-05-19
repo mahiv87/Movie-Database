@@ -29,9 +29,9 @@ app.get('/api/movies', (req, res) => {
 });
 
 app.post('/api/add-movie', (req, res) => {
-    let newMovie = req.params.movie_name;
+    let newMovie = req.body.movie_name;
 
-    db.query(`INSERT INTO movies (movie_name) VALUES ("Turning Red")`, newMovie, (err, results) => {
+    db.query(`INSERT INTO movies (movie_name) VALUES (?)`, newMovie, (err, results) => {
         if (err) {
             console.error(err);
         } else {
