@@ -28,6 +28,17 @@ app.get('/api/movies', (req, res) => {
     })
 });
 
+app.get('/api/reviews', (req, res) => {
+    db.query(`SELECT * FROM reviews`, (err, results) => {
+        if (err) {
+            console.error(err)
+        } else {
+            res.json(results);
+            console.log(results);
+        }
+    })
+})
+
 app.post('/api/add-movie', (req, res) => {
     let newMovie = req.body.movie_name;
 
@@ -41,10 +52,23 @@ app.post('/api/add-movie', (req, res) => {
     })
 });
 
-app.post('/api/update-review/:id', (req, res) => {
+app.post('/api/add-review', (req, res) => {
+    let newReview = req.body.reviews;
+
+    db.query(`INSERT INTO reviews (reviews) VALUES (?)`, newReview, (err, results) => {
+        if (err) {
+            console.error(err)
+        } else {
+            res.json(results);
+            console.log(results);
+        }
+    })
+})
+
+app.put('/api/update-review/:id', (req, res) => {
     let update = [req.body.review, req.params.id];
 
-    db.query(`UPDATE reviews SET review = ? WHERE id = ?`, update, (err, results) => {
+    db.query(`UPDATE reviews SET reviews = ? WHERE id = ?`, update, (err, results) => {
         if (err) {
             console.error(err);
         } else {
